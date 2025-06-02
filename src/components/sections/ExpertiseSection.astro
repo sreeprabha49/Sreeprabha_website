@@ -1,0 +1,87 @@
+---
+const skills = [
+  {
+    title: "UX/UI Design",
+    icon: "fa-pencil-ruler",
+    description: "Creating intuitive, accessible interfaces that delight users and solve real problems.",
+    percentage: 95
+  },
+  {
+    title: "Frontend Development",
+    icon: "fa-code",
+    description: "Building responsive, performant websites and applications using modern web technologies.",
+    percentage: 85
+  },
+  {
+    title: "Product Strategy",
+    icon: "fa-lightbulb",
+    description: "Defining vision, roadmaps and KPIs to guide product development and achieve business goals.",
+    percentage: 90
+  },
+  {
+    title: "User Research",
+    icon: "fa-magnifying-glass",
+    description: "Conducting interviews, usability studies, and analyzing data to inform design decisions.",
+    percentage: 80
+  }
+];
+---
+
+<section id="expertise" class="py-20 bg-gray-50 dark:bg-gray-800">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-display font-bold mb-6 relative inline-block">
+        My Expertise
+        <span class="absolute -bottom-3 left-0 w-full h-1 bg-accent-500 rounded"></span>
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
+        Here are the primary areas where I excel and provide the most value to clients and teams.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {skills.map(skill => (
+        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow p-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 bg-primary-100 dark:bg-primary-900/30 p-3 rounded-lg text-primary-600 dark:text-primary-400">
+              <i class={`fa-solid ${skill.icon} text-xl`}></i>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{skill.title}</h3>
+              <p class="mt-1 text-gray-600 dark:text-gray-400">{skill.description}</p>
+              
+              <div class="mt-4">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Proficiency</span>
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{skill.percentage}%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                  <div 
+                    class="bg-gradient-to-r from-primary-500 to-accent-500 h-2.5 rounded-full" 
+                    style={`width: ${skill.percentage}%`}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="mt-16 max-w-3xl mx-auto">
+      <h3 class="text-2xl font-display font-bold text-center mb-8">Technical Skills</h3>
+      
+      <div class="flex flex-wrap justify-center gap-3 md:gap-4">
+        {[
+          "Figma", "Adobe XD", "Sketch", "HTML/CSS", "JavaScript", "React", 
+          "TypeScript", "Tailwind CSS", "Node.js", "Git", "User Testing", 
+          "Wireframing", "Prototyping", "A/B Testing", "Responsive Design"
+        ].map(skill => (
+          <span class="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full text-sm font-medium">
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

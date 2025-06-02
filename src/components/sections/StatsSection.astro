@@ -1,0 +1,61 @@
+---
+const stats = [
+  { label: "Years Experience", value: "8+", icon: "fa-calendar-days" },
+  { label: "Projects Completed", value: "75+", icon: "fa-briefcase" },
+  { label: "Happy Clients", value: "50+", icon: "fa-face-smile" },
+  { label: "Design Awards", value: "12", icon: "fa-trophy" }
+];
+---
+
+<section class="py-20 bg-white dark:bg-gray-900">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        {stats.map(stat => (
+          <div
+            class="group p-6 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            x-data="{ counted: false }"
+            x-intersect="counted = true"
+          >
+            <div class="flex justify-center mb-4">
+              <div class="w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform">
+                <i class={`fa-solid ${stat.icon} text-2xl`}></i>
+              </div>
+            </div>
+            
+            <h3 
+              x-ref="countTarget"
+              x-data="{ value: 0 }"
+              x-text="value"
+              x-effect="
+                if (counted) {
+                  let start = 0;
+                  const end = parseInt('${stat.value}'.replace(/\D/g, ''));
+                  const duration = 2000;
+                  const startTimestamp = performance.now();
+                  
+                  const step = (currentTimestamp) => {
+                    const elapsed = currentTimestamp - startTimestamp;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    value = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                      window.requestAnimationFrame(step);
+                    } else {
+                      value = '${stat.value}';
+                    }
+                  };
+                  
+                  window.requestAnimationFrame(step);
+                }
+              "
+              class="text-4xl font-bold text-gray-900 dark:text-white mb-2"
+            >{stat.value}</h3>
+            
+            <p class="text-gray-600 dark:text-gray-400">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

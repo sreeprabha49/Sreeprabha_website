@@ -1,0 +1,171 @@
+---
+---
+
+<section id="contact" class="py-20 bg-gray-50 dark:bg-gray-800">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-display font-bold mb-6 relative inline-block">
+        Get In Touch
+        <span class="absolute -bottom-3 left-0 w-full h-1 bg-accent-500 rounded"></span>
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
+        Have a project in mind or want to discuss potential opportunities? I'd love to hear from you!
+      </p>
+    </div>
+    
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Contact form -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 md:p-8">
+          <form 
+            x-data="{ 
+              formData: { name: '', email: '', subject: '', message: '' },
+              loading: false,
+              success: false,
+              error: false,
+              async submitForm() {
+                this.loading = true;
+                this.success = false;
+                this.error = false;
+                
+                // For demo purposes, simulate a form submission
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                this.loading = false;
+                this.success = true;
+                this.formData = { name: '', email: '', subject: '', message: '' };
+              }
+            }"
+            @submit.prevent="submitForm()"
+          >
+            <div class="space-y-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  x-model="formData.name"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  x-model="formData.email"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subject</label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  x-model="formData.subject"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                <textarea 
+                  id="message" 
+                  x-model="formData.message"
+                  rows="5"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none"
+                ></textarea>
+              </div>
+              
+              <!-- Success/Error Messages -->
+              <div x-show="success" x-transition class="p-4 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-lg">
+                Thank you! Your message has been sent successfully.
+              </div>
+              
+              <div x-show="error" x-transition class="p-4 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-lg">
+                Sorry, there was an error sending your message. Please try again.
+              </div>
+              
+              <button 
+                type="submit" 
+                x-bind:disabled="loading"
+                class="w-full px-6 py-3 bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex justify-center"
+              >
+                <span x-show="!loading">Send Message</span>
+                <span x-show="loading" class="flex items-center">
+                  <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing...
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Contact information -->
+        <div class="flex flex-col justify-between">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Information</h3>
+            
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 bg-primary-100 dark:bg-primary-900/30 p-3 rounded-lg text-primary-600 dark:text-primary-400">
+                  <i class="fa-solid fa-envelope text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-base font-medium text-gray-900 dark:text-white">Email</h4>
+                  <a href="mailto:hello@johndoe.com" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">hello@johndoe.com</a>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 bg-primary-100 dark:bg-primary-900/30 p-3 rounded-lg text-primary-600 dark:text-primary-400">
+                  <i class="fa-solid fa-phone text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-base font-medium text-gray-900 dark:text-white">Phone</h4>
+                  <a href="tel:+14155552671" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">+1 (415) 555-2671</a>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 bg-primary-100 dark:bg-primary-900/30 p-3 rounded-lg text-primary-600 dark:text-primary-400">
+                  <i class="fa-solid fa-location-dot text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-base font-medium text-gray-900 dark:text-white">Location</h4>
+                  <p class="text-gray-600 dark:text-gray-400">San Francisco, California</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-12">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Follow Me</h3>
+            <div class="flex space-x-4">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="p-3 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i class="fa-brands fa-linkedin text-xl"></i>
+              </a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="p-3 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i class="fa-brands fa-github text-xl"></i>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="p-3 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i class="fa-brands fa-twitter text-xl"></i>
+              </a>
+              <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" aria-label="Dribbble" class="p-3 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <i class="fa-brands fa-dribbble text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

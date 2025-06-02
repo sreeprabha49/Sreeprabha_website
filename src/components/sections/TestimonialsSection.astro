@@ -1,0 +1,117 @@
+---
+const testimonials = [
+  {
+    quote: "John completely transformed our product's user experience. His strategic approach to design not only made our app more beautiful but significantly improved our key metrics.",
+    author: "Sarah Johnson",
+    role: "Product Manager at TechCorp",
+    image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    quote: "Working with John was a game-changer for our startup. His ability to balance user needs with business requirements resulted in a product our customers love using.",
+    author: "Michael Chen",
+    role: "Founder, HealthTech Solutions",
+    image: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    quote: "John's expertise in both design and development made our collaboration incredibly efficient. He thinks holistically about products and delivers solutions that truly work.",
+    author: "Emily Rodriguez",
+    role: "CTO at Finnovate",
+    image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600"
+  }
+];
+---
+
+<section id="testimonials" class="py-20 bg-gray-50 dark:bg-gray-800 overflow-hidden">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-display font-bold mb-6 relative inline-block">
+        Testimonials
+        <span class="absolute -bottom-3 left-0 w-full h-1 bg-accent-500 rounded"></span>
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
+        Don't just take my word for it - hear what others have to say about working with me.
+      </p>
+    </div>
+
+    <!-- Testimonial Slider -->
+    <div 
+      x-data="{ 
+        activeSlide: 0,
+        slides: [0, 1, 2],
+        next() { this.activeSlide = (this.activeSlide + 1) % this.slides.length },
+        prev() { this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length }
+      }"
+      class="relative max-w-5xl mx-auto"
+    >
+      <!-- Testimonials container -->
+      <div class="relative overflow-hidden">
+        <div 
+          class="flex transition-transform duration-500 ease-in-out"
+          x-bind:style="`transform: translateX(-${activeSlide * 100}%)`"
+        >
+          {testimonials.map(testimonial => (
+            <div class="w-full flex-shrink-0 px-4">
+              <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 md:p-10">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                  <div class="flex-shrink-0 w-20 h-20 md:w-24 md:h-24">
+                    <img 
+                      src={testimonial.image} 
+                      alt={testimonial.author}
+                      class="w-full h-full object-cover rounded-full border-4 border-primary-100 dark:border-primary-900"
+                    />
+                  </div>
+                  
+                  <div class="flex-1 text-center md:text-left">
+                    <div class="text-accent-500 mb-4">
+                      <i class="fa-solid fa-quote-left text-2xl"></i>
+                    </div>
+                    
+                    <blockquote class="text-lg md:text-xl italic text-gray-700 dark:text-gray-300 mb-6">
+                      "{testimonial.quote}"
+                    </blockquote>
+                    
+                    <div>
+                      <div class="font-bold text-gray-900 dark:text-white">{testimonial.author}</div>
+                      <div class="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Navigation buttons -->
+      <div class="flex justify-center mt-8 space-x-4">
+        <button 
+          @click="prev()"
+          class="p-2 rounded-full bg-white dark:bg-gray-800 shadow-md text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          aria-label="Previous testimonial"
+        >
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        
+        <button 
+          @click="next()"
+          class="p-2 rounded-full bg-white dark:bg-gray-800 shadow-md text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          aria-label="Next testimonial"
+        >
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+      
+      <!-- Indicators -->
+      <div class="flex justify-center mt-4 space-x-2">
+        {testimonials.map((_, index) => (
+          <button
+            @click={`activeSlide = ${index}`}
+            x-bind:class={`activeSlide === ${index} ? 'w-8 bg-primary-500' : 'w-3 bg-gray-300 dark:bg-gray-700'`}
+            class="h-3 rounded-full transition-all duration-300 focus:outline-none"
+            aria-label={`Go to testimonial ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

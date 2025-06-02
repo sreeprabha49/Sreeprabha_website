@@ -1,0 +1,122 @@
+---
+const projects = [
+  {
+    title: "FinTrack Dashboard",
+    category: "UI/UX Design",
+    image: "https://images.pexels.com/photos/7821485/pexels-photo-7821485.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "A comprehensive financial dashboard with data visualization and budget tracking features.",
+    link: "#"
+  },
+  {
+    title: "Health & Wellness App",
+    category: "Mobile App",
+    image: "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "A mobile application for tracking health metrics, exercise routines, and wellness goals.",
+    link: "#"
+  },
+  {
+    title: "E-commerce Redesign",
+    category: "Web Design",
+    image: "https://images.pexels.com/photos/6956883/pexels-photo-6956883.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "Complete redesign of an e-commerce platform focusing on conversion optimization and user experience.",
+    link: "#"
+  },
+  {
+    title: "Travel Booking Platform",
+    category: "Product Design",
+    image: "https://images.pexels.com/photos/5876695/pexels-photo-5876695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "A travel booking interface with integrated recommendations and personalized experiences.",
+    link: "#"
+  },
+  {
+    title: "Smart Home Control",
+    category: "IoT Interface",
+    image: "https://images.pexels.com/photos/3183165/pexels-photo-3183165.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "Interface design for a smart home system allowing control of multiple connected devices.",
+    link: "#"
+  },
+  {
+    title: "Productivity Tool",
+    category: "Web Application",
+    image: "https://images.pexels.com/photos/6694542/pexels-photo-6694542.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "A team collaboration tool designed to improve productivity and project management.",
+    link: "#"
+  }
+];
+
+// Categories for the filter
+const categories = ["All", ...new Set(projects.map(project => project.category))];
+---
+
+<section id="portfolio" class="py-20 bg-white dark:bg-gray-900">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-display font-bold mb-6 relative inline-block">
+        My Work
+        <span class="absolute -bottom-3 left-0 w-full h-1 bg-accent-500 rounded"></span>
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
+        Explore some of my recent projects and see how I approach design challenges.
+      </p>
+    </div>
+
+    <!-- Portfolio filter -->
+    <div 
+      x-data="{ activeCategory: 'All' }"
+      class="mb-12"
+    >
+      <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+        {categories.map(category => (
+          <button 
+            x-on:click="activeCategory = '{category}'"
+            x-bind:class="activeCategory === '{category}' ? 'bg-primary-600 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700'"
+            class="px-4 py-2 rounded-full text-sm font-medium transition-colors"
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+      
+      <!-- Portfolio grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        {projects.map(project => (
+          <div 
+            x-show="activeCategory === 'All' || activeCategory === '{project.category}'"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 transform scale-95"
+            x-transition:enter-end="opacity-100 transform scale-100"
+            class="group bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
+          >
+            <div class="relative overflow-hidden h-56">
+              <img 
+                src={project.image} 
+                alt={project.title} 
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                <div class="p-6 w-full">
+                  <span class="text-xs font-medium text-accent-400 bg-accent-900/50 rounded-full px-2 py-1">{project.category}</span>
+                  <h3 class="mt-2 text-xl font-bold text-white">{project.title}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                {project.title}
+              </h3>
+              <p class="mt-2 text-gray-600 dark:text-gray-400">{project.description}</p>
+              <div class="mt-4">
+                <a 
+                  href={project.link} 
+                  class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium"
+                >
+                  View Project <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
